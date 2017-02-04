@@ -1,0 +1,30 @@
+DEB [20170204-13:44:23.201] thr=1   paramiko.transport: starting thread (client mode): 0xc676a810L
+DEB [20170204-13:44:23.201] thr=1   paramiko.transport: Local version/idstring: SSH-2.0-paramiko_1.16.0
+DEB [20170204-13:44:23.327] thr=1   paramiko.transport: Remote version/idstring: SSH-2.0-OpenSSH_7.2
+INF [20170204-13:44:23.327] thr=1   paramiko.transport: Connected (version 2.0, client OpenSSH_7.2)
+DEB [20170204-13:44:23.330] thr=1   paramiko.transport: kex algos:[u'curve25519-sha256@libssh.org', u'ecdh-sha2-nistp256', u'ecdh-sha2-nistp384', u'ecdh-sha2-nistp521', u'diffie-hellman-group-exchange-sha256', u'diffie-hellman-group14-sha1'] server key:[u'ssh-rsa', u'rsa-sha2-512', u'rsa-sha2-256', u'ecdsa-sha2-nistp256', u'ssh-ed25519'] client encrypt:[u'chacha20-poly1305@openssh.com', u'aes128-ctr', u'aes192-ctr', u'aes256-ctr', u'aes128-gcm@openssh.com', u'aes256-gcm@openssh.com'] server encrypt:[u'chacha20-poly1305@openssh.com', u'aes128-ctr', u'aes192-ctr', u'aes256-ctr', u'aes128-gcm@openssh.com', u'aes256-gcm@openssh.com'] client mac:[u'umac-64-etm@openssh.com', u'umac-128-etm@openssh.com', u'hmac-sha2-256-etm@openssh.com', u'hmac-sha2-512-etm@openssh.com', u'hmac-sha1-etm@openssh.com', u'umac-64@openssh.com', u'umac-128@openssh.com', u'hmac-sha2-256', u'hmac-sha2-512', u'hmac-sha1'] server mac:[u'umac-64-etm@openssh.com', u'umac-128-etm@openssh.com', u'hmac-sha2-256-etm@openssh.com', u'hmac-sha2-512-etm@openssh.com', u'hmac-sha1-etm@openssh.com', u'umac-64@openssh.com', u'umac-128@openssh.com', u'hmac-sha2-256', u'hmac-sha2-512', u'hmac-sha1'] client compress:[u'none', u'zlib@openssh.com'] server compress:[u'none', u'zlib@openssh.com'] client lang:[u''] server lang:[u''] kex follows?False
+DEB [20170204-13:44:23.330] thr=1   paramiko.transport: Kex agreed: diffie-hellman-group14-sha1
+DEB [20170204-13:44:23.330] thr=1   paramiko.transport: Cipher agreed: aes128-ctr
+DEB [20170204-13:44:23.330] thr=1   paramiko.transport: MAC agreed: hmac-sha2-256
+DEB [20170204-13:44:23.330] thr=1   paramiko.transport: Compression agreed: none
+DEB [20170204-13:44:23.395] thr=1   paramiko.transport: kex engine KexGroup14 specified hash_algo <built-in function openssl_sha1>
+ERR [20170204-13:44:23.395] thr=1   paramiko.transport: Unknown exception: CTR mode needs counter parameter, not IV
+ERR [20170204-13:44:23.396] thr=1   paramiko.transport: Traceback (most recent call last):
+ERR [20170204-13:44:23.396] thr=1   paramiko.transport:   File "/usr/lib/python2.7/site-packages/paramiko/transport.py", line 1744, in run
+ERR [20170204-13:44:23.396] thr=1   paramiko.transport:     self.kex_engine.parse_next(ptype, m)
+ERR [20170204-13:44:23.396] thr=1   paramiko.transport:   File "/usr/lib/python2.7/site-packages/paramiko/kex_group1.py", line 75, in parse_next
+ERR [20170204-13:44:23.396] thr=1   paramiko.transport:     return self._parse_kexdh_reply(m)
+ERR [20170204-13:44:23.396] thr=1   paramiko.transport:   File "/usr/lib/python2.7/site-packages/paramiko/kex_group1.py", line 112, in _parse_kexdh_reply
+ERR [20170204-13:44:23.396] thr=1   paramiko.transport:     self.transport._activate_outbound()
+ERR [20170204-13:44:23.396] thr=1   paramiko.transport:   File "/usr/lib/python2.7/site-packages/paramiko/transport.py", line 2074, in _activate_outbound
+ERR [20170204-13:44:23.396] thr=1   paramiko.transport:     engine = self._get_cipher(self.local_cipher, key_out, IV_out)
+ERR [20170204-13:44:23.397] thr=1   paramiko.transport:   File "/usr/lib/python2.7/site-packages/paramiko/transport.py", line 1649, in _get_cipher
+ERR [20170204-13:44:23.397] thr=1   paramiko.transport:     return self._cipher_info[name]['class'].new(key, self._cipher_info[name]['mode'], iv, counter)
+ERR [20170204-13:44:23.397] thr=1   paramiko.transport:   File "/usr/lib64/python2.7/site-packages/Crypto/Cipher/AES.py", line 95, in new
+ERR [20170204-13:44:23.397] thr=1   paramiko.transport:     return AESCipher(key, *args, **kwargs)
+ERR [20170204-13:44:23.397] thr=1   paramiko.transport:   File "/usr/lib64/python2.7/site-packages/Crypto/Cipher/AES.py", line 59, in __init__
+ERR [20170204-13:44:23.397] thr=1   paramiko.transport:     blockalgo.BlockAlgo.__init__(self, _AES, key, *args, **kwargs)
+ERR [20170204-13:44:23.397] thr=1   paramiko.transport:   File "/usr/lib64/python2.7/site-packages/Crypto/Cipher/blockalgo.py", line 141, in __init__
+ERR [20170204-13:44:23.397] thr=1   paramiko.transport:     self._cipher = factory.new(key, *args, **kwargs)
+ERR [20170204-13:44:23.397] thr=1   paramiko.transport: ValueError: CTR mode needs counter parameter, not IV
+ERR [20170204-13:44:23.397] thr=1   paramiko.transport: 

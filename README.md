@@ -1,5 +1,4 @@
 # Storm
----
 
 Apache Storm is a distributed real-time big data-processing system.
 
@@ -43,6 +42,16 @@ Basically Hadoop and Storm frameworks are used for analyzing big data. Both of t
 A Storm topology has a set of special "acker" tasks that track the DAG of tuples for every spout tuple. When an acker sees that a DAG is complete, it sends a message to the spout task that created the spout tuple to ack the message. 
 
 You can set the number of acker tasks for a topology in the topology configuration using `Config.TOPOLOGY_ACKERS`. Storm defaults `TOPOLOGY_ACKERS` to one task per worker.
+
+## At least once, At Most once, Exactly Once
+
+To have exactly once semantics use the Trident API. 
+
+> Trident is a high-level abstraction for doing realtime computing on top of Storm. It allows you to seamlessly intermix high throughput (millions of messages per second), stateful stream processing with low latency distributed querying. If you're familiar with high level batch processing tools like Pig or Cascading, the concepts of Trident will be very familiar – Trident has joins, aggregations, grouping, functions, and filters. In addition to these, Trident adds primitives for doing stateful, incremental processing on top of any database or persistence store. Trident has consistent, exactly-once semantics, so it is easy to reason about Trident topologies.
+
+In some cases, like with a lot of analytics, dropping data is OK so disabling the fault tolerance by setting the number of acker bolts to 0 Config.TOPOLOGY_ACKERS. 
+
+Last you want to be sure that everything was processed at least once and nothing was dropped. This is especially useful if all operations are idenpotent or if deduping can happen aferwards.
 
 ## Use-Cases of Apache Storm
 

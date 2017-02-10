@@ -7,7 +7,7 @@ import org.apache.storm.topology.TopologyBuilder;
 import spout.NumberSpout;
 import util.LocalSubmitter;
 
-public class StormBreaker {
+public class StormCounter {
     private static final int SECOND = 1000;
     private static final int MINUTE = SECOND * 60;
 

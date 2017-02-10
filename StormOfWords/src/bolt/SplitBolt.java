@@ -11,26 +11,22 @@ import org.apache.storm.tuple.Values;
 
 import java.util.Map;
 
-public class AdderBolt extends BaseRichBolt implements IBolt{
-    private OutputCollector collector;
+public class SplitBolt extends BaseRichBolt implements IBolt{
+	private OutputCollector collector;
 
-    public void prepare(Map conf, TopologyContext context, OutputCollector collector) {
-        this.collector = collector;
-    }
+	public void prepare(Map conf, TopologyContext context, OutputCollector collector) {
+		this.collector = collector;
+	}
 
-    public void execute(Tuple tuple) {
-//        try {
-//            Thread.sleep(10);
-//        }
-//        catch (InterruptedException e) {
-//
-//        }
-        collector.emit(tuple, new Values(tuple.getInteger(0) + 1));
-//        collector.ack(tuple);
-    }
+	public void execute(Tuple tuple) {
+		String sentence = tuple.getString(0);
+		for(String word: sentence.split(" ")) {
+			this.collector.emit(new Values(word));
+		}
+	}
 
-    public void declareOutputFields(OutputFieldsDeclarer declarer) {
-        declarer.declare(new Fields("int"));
-    }
+	public void declareOutputFields(OutputFieldsDeclarer declarer) {
+		declarer.declare(new Fields("int"));
+	}
 
 }

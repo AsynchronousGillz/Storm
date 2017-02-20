@@ -32,7 +32,7 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Random;
 
-public class RandomWordSpout extends BaseRichSpout {
+public class RandomSentenceSpout extends BaseRichSpout {
 	private static final Logger LOG = LoggerFactory.getLogger(RandomSentenceSpout.class);
 
 	SpoutOutputCollector _collector;

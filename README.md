@@ -47,13 +47,52 @@ You can set the number of acker tasks for a topology in the topology configurati
 
 ## At least once, At Most once, Exactly Once
 
+### Exactly
 To have exactly once semantics use the Trident API. 
 
 > Trident is a high-level abstraction for doing realtime computing on top of Storm. It allows you to seamlessly intermix high throughput (millions of messages per second), stateful stream processing with low latency distributed querying. If you're familiar with high level batch processing tools like Pig or Cascading, the concepts of Trident will be very familiar – Trident has joins, aggregations, grouping, functions, and filters. In addition to these, Trident adds primitives for doing stateful, incremental processing on top of any database or persistence store. Trident has consistent, exactly-once semantics, so it is easy to reason about Trident topologies.
 
+### At least once
 In some cases, like with a lot of analytics, dropping data is OK so disabling the fault tolerance by setting the number of acker bolts to 0 Config.TOPOLOGY_ACKERS. 
 
+### At most once
 Last you want to be sure that everything was processed at least once and nothing was dropped. This is especially useful if all operations are idenpotent or if deduping can happen aferwards.
+
+## Example
+
+```
+Consider a list of 2000 statements:
+
+1) Exactly one statement on this list is false. 
+2) Exactly two statements on this list are false. 
+3) Exactly three statements on this list are false. 
+. . . 
+2000) Exactly 2000 statements on this list are false. 
+```
+
+### Which statements are true and which are false?
+
+### What happens if you replace "exactly" with "at least"?
+
+### What happens if you replace "exactly" with "at most"?
+
+### What happens in all three cases if you replace "false" with "true"?
+
+> Note: "The 'exactly . . . false' problem was posed by David L. Silverman for 1969 statements in the January, 1969 issue of the Journal of Recreational Mathematics. I got the problem from Martin Gardner's "Knotted Doughnuts and Other Mathematical Entertainments", where he discusses it and some of the variants above." - Paul Sinclair
+
+---
+
+The sentence 'x is at least 5' means that the least x is allowed to be is 5;
+it can be 5, or any number greater than 5.
+So, the phrase 'x is at least 5' means 'x≥5'.
+
+The sentence 'x is at most 10' means that the most x is allowed to be is 10; it can be 10, or any number less than 10. So, the phrase 'x is at most 10' means 'x≤10'.
+
+#### More generally:
+| sentence | meaning of sentence | equivalent sentence |
+|---|---|---|
+| x | is at least k | the least x is allowed to be is k; it can be k or any number greater than k | x ≥ k |
+| x | is at most k the most x is allowed to be is k; it can be k or any number less than k | x ≤ k |
 
 ## Use-Cases of Apache Storm
 

@@ -15,7 +15,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.storm.starter.spout;
+package spout;
+
 
 import org.apache.storm.spout.SpoutOutputCollector;
 import org.apache.storm.task.TopologyContext;
@@ -33,29 +34,26 @@ import java.util.Map;
 import java.util.Random;
 
 public class RandomTransactionSpout extends BaseRichSpout {
-	private static final Logger LOG = LoggerFactory.getLogger(RandomSentenceSpout.class);
+	private static final Logger LOG = LoggerFactory.getLogger(RandomTransactionSpout.class);
 
 	SpoutOutputCollector _collector;
 	Random _rand;
 
 
-	@Override
+	//@Override
 	public void open(Map conf, TopologyContext context, SpoutOutputCollector collector) {
 		_collector = collector;
 		_rand = new Random();
 	}
 
-	@Override
+	//@Override
 	public void nextTuple() {
 		Utils.sleep(100);
-		Integer account = _rand.nextInt(9000);
-		LOG.debug("Emitting tuple: {}", account);
-		_collector.emit(new Values(account));
+		Integer transaction = (_rand.nextInt(25000)-(25000/2)); //not sure if this will create a random int from negative to positive
+		LOG.debug("Emitting tuple: {}", transaction);
+		_collector.emit(new Values(transaction));
 	}
 
-	protected String sentence(String input) {
-		return input;
-	}
 
 	@Override
 	public void ack(Object id) {
@@ -65,13 +63,13 @@ public class RandomTransactionSpout extends BaseRichSpout {
 	public void fail(Object id) {
 	}
 
-	@Override
+	//@Override
 	public void declareOutputFields(OutputFieldsDeclarer declarer) {
 		declarer.declare(new Fields("Integer"));
 	}
 
 	// Add unique identifier to each tuple, which is helpful for debugging
-	public static class TimeStamped extends RandomSentenceSpout {
+	public static class TimeStamped extends RandomTransactionSpout {
 		private final String prefix;
 
 		public TimeStamped() {

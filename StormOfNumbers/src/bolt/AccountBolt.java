@@ -12,13 +12,17 @@ import org.apache.storm.tuple.Values;
 import java.util.Map;
 
 public class AccountBolt extends BaseRichBolt implements IBolt {
+    
+    private Map accounts;
     private OutputCollector collector;
 
     public void prepare(Map conf, TopologyContext context, OutputCollector collector) {
         this.collector = collector;
+        this.accounts = new HashMap<Integer, Long>();
     }
 
     public void execute(Tuple tuple) {
+        String[] info = tuple.getString(0).split(" ");
     }
 
     public void declareOutputFields(OutputFieldsDeclarer declarer) {

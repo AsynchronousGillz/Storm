@@ -14,24 +14,24 @@ public class StormCounter {
     /* Example execution
     *
     * # Runs in local mode (LocalCluster), with topology name "StormCounter"
-    * $ storm jar StormOfWords-1.0.jar StormBreaker
+    * $ storm jar StormOfWords-1.0.jar StormBank
     *
     * # Runs in local mode (LocalCluster), with topology name "foobar"
-    * $ storm jar StormOfWords-1.0.jar StormBreaker foobar
+    * $ storm jar StormOfWords-1.0.jar StormBank foobar
     *
     * # Runs in local mode (LocalCluster), with topology name "foobar"
-    * $ storm jar StormOfWords-1.0.jar StormBreaker foobar local
+    * $ storm jar StormOfWords-1.0.jar StormBank foobar local
     *
     * # Runs in remote/cluster mode, with topology name "production-topology"
-    * $ storm jar StormOfWords-1.0.jar StormBreaker production-topology remote
+    * $ storm jar StormOfWords-1.0.jar StormBank production-topology remote
     *
     *
     * */
     public static void main(String[] args) throws Exception {
         System.out.println("***************** StormCounter Started *****************");
 
-        String topologyName = "StormCounter";
-        if (args.length >= 1) {
+        String topologyName = "StormBank";
+        ifa (args.length >= 1) {
             topologyName = args[0];
         }
         boolean runLocally = true;
@@ -41,9 +41,18 @@ public class StormCounter {
 
         TopologyBuilder builder = new TopologyBuilder();
 
-        builder.setSpout("word", new RandomWordSpout());
-        builder.setBolt("split", new SplitBolt()).shuffleGrouping("word");
-        builder.setBolt("count", new CountBolt()).shuffleGrouping("split");
+        builder.setSpout("0", new MoneySpout());
+        builder.setSpout("1", new MoneySpout());
+        builder.setSpout("2", new MoneySpout());
+        builder.setSpout("3", new MoneySpout());
+        builder.setSpout("4", new MoneySpout());
+
+        builder.setBolt("", new CountBolt(), 10)
+                 .shuffleGrouping("0")
+                 .shuffleGrouping("1")
+                 .shuffleGrouping("2")
+                 .shuffleGrouping("3")
+                 .shuffleGrouping("4");
 
         Config conf = new Config();
         conf.setDebug(false);

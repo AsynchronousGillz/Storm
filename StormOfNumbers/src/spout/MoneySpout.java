@@ -4,7 +4,6 @@ import org.apache.storm.spout.SpoutOutputCollector;
 import org.apache.storm.task.TopologyContext;
 import org.apache.storm.topology.OutputFieldsDeclarer;
 import org.apache.storm.topology.base.BaseRichSpout;
-import org.apache.storm.tuple.Fields;
 import org.apache.storm.tuple.Values;
 import org.apache.storm.utils.Utils;
 import org.slf4j.Logger;
@@ -16,17 +15,13 @@ import java.util.Random;
 /**
  * Created by skorrico on 2/24/17.
  */
-public class RandomAccountSpout extends BaseRichSpout{
-
-    private static final Logger LOG = LoggerFactory.getLogger(RandomAccountSpout.class);
+public class MoneySpout extends BaseRichSpout{
+    private static final Logger LOG = LoggerFactory.getLogger(MoneySpout.class);
 
     SpoutOutputCollector _collector;
     Random _rand;
 
-
-
     public void declareOutputFields(OutputFieldsDeclarer outputFieldsDeclarer) {
-        outputFieldsDeclarer.declare(new Fields("Integer"));
 
     }
 
@@ -37,10 +32,11 @@ public class RandomAccountSpout extends BaseRichSpout{
 
     public void nextTuple() {
         Utils.sleep(100);
-        Integer account = _rand.nextInt(9000);
-        LOG.debug("Emitting tuple: {}", account);
-        _collector.emit(new Values(account));
-
+        Integer Account = -_rand.nextInt(9000);
+        Integer Transaction = _rand.nextInt();
+        String combo = Account + " " + Transaction;
+        LOG.debug("Emitting tuple: {}", combo);
+        _collector.emit(new Values(combo));
     }
 
     @Override

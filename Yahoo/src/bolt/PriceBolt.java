@@ -12,8 +12,8 @@ import org.apache.storm.topology.OutputFieldsDeclarer;
 import org.apache.storm.tuple.Tuple;
 
 public class PriceBolt implements IRichBolt {
-	final private Map<String, Integer> priceMap;
-	final private Map<String, Boolean> resultMap;
+	private Map<String, Double> priceMap;
+	private Map<String, Double> resultMap;
 
 	private OutputCollector collector;
 
@@ -30,7 +30,7 @@ public class PriceBolt implements IRichBolt {
 		Double price = tuple.getDouble(1);
 		System.out.println(" - Input to bolt: "+company+" price: "+ price);
 		if (this.priceMap.containsKey(company)) {
-			Integer cutOffPrice = this.priceMap.get(company);
+			Double cutOffPrice = this.priceMap.get(company);
 			if (price < cutOffPrice)
 				this.resultMap.put(company, price);
 		} else {
@@ -42,7 +42,7 @@ public class PriceBolt implements IRichBolt {
 	@Override
 	public void cleanup() {
 		System.out.println("Finshed print reults.");
-		for(Map.Entry<String, Boolean> entry:resultMap.entrySet()){
+		for(Map.Entry<String, Double> entry:resultMap.entrySet()){
 			System.out.println(entry.getKey()+" : " + entry.getValue());
 		}
 	}

@@ -10,6 +10,8 @@ import org.apache.storm.tuple.Values;
 
 import java.util.Map;
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class YahooSpout extends BaseRichSpout implements ISpout {
 	public static final int TOTAL_NUMBERS = 1000;
@@ -19,7 +21,7 @@ public class YahooSpout extends BaseRichSpout implements ISpout {
 	private int index = 0;
 
 	public void declareOutputFields(OutputFieldsDeclarer declarer) {
-		declarer.declare(new Fields("number"));
+		declarer.declare(new Fields("companies"));
 	}
 
 	public void open(Map conf, TopologyContext context, SpoutOutputCollector collector) {
@@ -28,7 +30,7 @@ public class YahooSpout extends BaseRichSpout implements ISpout {
 
 	public void nextTuple() {
 		if(index < TOTAL_NUMBERS) {
-			collector.emit(new Values(numbers[index++]));
+			collector.emit(new Values(companies[index++]));
 		}
 	}
 
@@ -42,17 +44,16 @@ public class YahooSpout extends BaseRichSpout implements ISpout {
 		System.out.println("fail on msgId" + msgId);
 	}
 
-	private static String[] generateAscendingNumbers() {
+	private static String[] generateCompanyList() {
 		String[] companyList = new String[TOTAL_NUMBERS];
 		Scanner scanner = null;
 		try {
-			scanner = new Scanner(new File("doc.csv"));
+			scanner = new Scanner(new File("companylist.csv"));
 		} catch (FileNotFoundException e) {}
-		scanner.useDelimiter(",");
-		for (int i = 0; i < TOTAL_NUMBERS; scanner.hasNext()){
-			numberList[i++] = scanner.next();
+		for (int i = 0; i < TOTAL_NUMBERS; scanner.hasNextLine()){
+			companyList[i++] = scanner.nextLine().split(",")[0];
 		}
 		scanner.close();
-		return numberList;
+		return companyList;
 	}
 }

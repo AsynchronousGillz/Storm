@@ -34,7 +34,7 @@ public class WordCountBolt extends BaseRichBolt implements IBolt{
 	@Override
 	public void cleanup() {
 		System.out.println("Finshed print reults.");
-		for(Map.Entry<String, Integer> entry:conuts.entrySet()){
+		for(Map.Entry<String, Integer> entry:counts.entrySet()){
 			System.out.println(entry.getKey()+" : " + entry.getValue());
 		}
 	}

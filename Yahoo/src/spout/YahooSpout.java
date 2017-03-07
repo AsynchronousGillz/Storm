@@ -48,7 +48,7 @@ public class YahooSpout extends BaseRichSpout implements ISpout {
 		String[] companyList = new String[TOTAL_NUMBERS];
 		Scanner scanner = null;
 		try {
-			scanner = new Scanner(new File("companylist.csv"));
+			scanner = new Scanner(new File("/s/bach/g/under/ganvana/reu/Storm-Projects/Yahoo/companylist.csv"));
 		} catch (FileNotFoundException e) {}
 		for (int i = 0; i < TOTAL_NUMBERS; scanner.hasNextLine()){
 			companyList[i++] = scanner.nextLine().split(",")[0];

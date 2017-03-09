@@ -11,24 +11,24 @@ public class YahooStorm {
 
     /* Example execution
     *
-    * # Runs in local mode (LocalCluster), with topology name "StormYahoo"
-    * $ storm jar YahooStorm-1.0.jar StormYahoo
+    * # Runs in local mode (LocalCluster), with topology name "YahooStorm"
+    * $ storm jar YahooStorm-1.0.jar YahooStorm
     *
     * # Runs in local mode (LocalCluster), with topology name "foobar"
-    * $ storm jar YahooStorm-1.0.jar StormYahoo foobar
+    * $ storm jar YahooStorm-1.0.jar YahooStorm foobar
     *
     * # Runs in local mode (LocalCluster), with topology name "foobar"
-    * $ storm jar YahooStorm-1.0.jar StormYahoo foobar local
+    * $ storm jar YahooStorm-1.0.jar YahooStorm foobar local
     *
     * # Runs in remote/cluster mode, with topology name "production-topology"
-    * $ storm jar YahooStorm-1.0.jar StormYahoo production-topology remote
+    * $ storm jar YahooStorm-1.0.jar YahooStorm production-topology remote
     *
     *
     * */
     public static void main(String[] args) throws Exception {
-        System.out.println("***************** StormYahoo Started *****************");
+        System.out.println("***************** YahooStorm Started *****************");
 
-        String topologyName = "StormYahoo";
+        String topologyName = "YahooStorm";
         if (args.length >= 1) {
             topologyName = args[0];
         }

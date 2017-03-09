@@ -70,13 +70,13 @@ Consider a list of 2000 statements:
 2000) Exactly 2000 statements on this list are false. 
 ```
 
-### Which statements are true and which are false?
+**Which statements are true and which are false?**
 
-### What happens if you replace "exactly" with "at least"?
+**What happens if you replace "exactly" with "at least"?**
 
-### What happens if you replace "exactly" with "at most"?
+**What happens if you replace "exactly" with "at most"?**
 
-### What happens in all three cases if you replace "false" with "true"?
+**What happens in all three cases if you replace "false" with "true"?**
 
 > Note: "The 'exactly . . . false' problem was posed by David L. Silverman for 1969 statements in the January, 1969 issue of the Journal of Recreational Mathematics. I got the problem from Martin Gardner's "Knotted Doughnuts and Other Mathematical Entertainments", where he discusses it and some of the variants above." - Paul Sinclair
 

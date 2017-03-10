@@ -18,7 +18,7 @@ public class AccountBolt extends BaseRichBolt implements IBolt {
 
     public void prepare(Map conf, TopologyContext context, OutputCollector collector) {
         this.collector = collector;
-        this.accounts = new HashMap<Integer, Long>();
+        //this.accounts = new HashMap<Integer, Long>();
     }
 
     public void execute(Tuple tuple) {

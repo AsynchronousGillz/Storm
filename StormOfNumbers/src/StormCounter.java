@@ -1,6 +1,7 @@
 
 import bolt.AccountBolt;
 import bolt.CountBolt;
+import spout.MoneySpout;
 import spout.RandomAccountSpout;
 import spout.RandomTransactionSpout;
 import org.apache.storm.Config;
@@ -34,7 +35,7 @@ public class StormCounter {
         System.out.println("***************** StormCounter Started *****************");
 
         String topologyName = "StormBank";
-        ifa (args.length >= 1) {
+        if (args.length >= 1) {
             topologyName = args[0];
         }
         boolean runLocally = true;
@@ -50,7 +51,7 @@ public class StormCounter {
         builder.setSpout("3", new MoneySpout());
         builder.setSpout("4", new MoneySpout());
 
-        builder.setBolt("", new CountBolt(), 10)
+        builder.setBolt("bolt", new CountBolt(), 10)
                  .shuffleGrouping("0")
                  .shuffleGrouping("1")
                  .shuffleGrouping("2")

@@ -113,3 +113,7 @@ Apache Storm is very famous for real-time big data stream processing. For this r
 + Storm has operational intelligence.
 + Storm provides guaranteed data processing even if any of the connected nodes in the cluster die or messages are lost.
 
+### Function information
+
++ `cleanup()`
+..+ Is called in local-mode when you shutdown() your localcluster. But not on your production cluster when storm kill is executed or it is removed from nimbus server (cleanup is never called on the production cluster, its only in local mode)

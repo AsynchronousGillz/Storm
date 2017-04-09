@@ -34,8 +34,8 @@ public class AccountSpout extends BaseRichSpout implements ISpout {
 	public void nextTuple() {
 		Random rand = new Random();
 		while (true) {
-			AVG += System.nanoTime - TIM;
-			TIM = System.nanoTime;
+			AVG += System.nanoTime() - TIM;
+			TIM = System.nanoTime();
 			CON ++;
 			int account = rand.nextInt(TOTAL_NUMBERS);
 			double amount = (-1*TOTAL_NUMBERS) + (TOTAL_NUMBERS - (-1*TOTAL_NUMBERS)) * rand.nextDouble();

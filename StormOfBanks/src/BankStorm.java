@@ -1,6 +1,7 @@
 import bolt.SumBolt;
 import org.apache.storm.Config;
 import org.apache.storm.StormSubmitter;
+import org.apache.storm.topology.BoltDeclarer;
 import org.apache.storm.topology.TopologyBuilder;
 import spout.AccountSpout;
 import util.LocalSubmitter;
@@ -41,8 +42,15 @@ public class BankStorm {
 
 		TopologyBuilder builder = new TopologyBuilder();
 
-		builder.setSpout("account", new AccountSpout());
-		builder.setBolt("sum", new SumBolt()).shuffleGrouping("account");
+		for (int i = 0; i < 10; i++) {
+			builder.setSpout(""+i, new AccountSpout());
+		}
+
+		BoltDeclarer bd = builder.setBolt("S", new SumBolt());
+		
+		for (int i = 0; i < 10; i++) {
+			bd.shuffleGrouping(""+i);
+		}
 
 		Config conf = new Config();
 		conf.setDebug(true);

@@ -12,10 +12,10 @@ import java.util.Map;
 import java.util.Random;
 
 public class AccountSpout extends BaseRichSpout implements ISpout {
-	public static final int TOTAL_NUMBERS = 100;
+	public static final int TOTAL_NUMBERS = 1000;
 	public static long AVG = 0;
 	public static long CON = 0;
-	public static long TIM = System.nanoTime();
+	public static long TIM = System.currentTimeMillis();
 
 	private SpoutOutputCollector collector;
 
@@ -28,15 +28,16 @@ public class AccountSpout extends BaseRichSpout implements ISpout {
 	}
 
 	public void close() {
-		System.out.println(">> Average Time: "+AVG / CON);
+		System.out.println(">> Average Time: "+this.AVG / this.CON);
 	}
 
 	public void nextTuple() {
 		Random rand = new Random();
 		while (true) {
-			AVG += System.nanoTime() - TIM;
-			TIM = System.nanoTime();
-			CON ++;
+			this.AVG += System.currentTimeMillis() - this.TIM;
+			this.TIM = System.currentTimeMillis();
+			this.CON ++;
+			System.out.println(">>> SPOUT AVG TIME: "+this.AVG / this.CON);
 			int account = rand.nextInt(TOTAL_NUMBERS);
 			double amount = (-1*TOTAL_NUMBERS) + (TOTAL_NUMBERS - (-1*TOTAL_NUMBERS)) * rand.nextDouble();
 			collector.emit(new Values(account, amount));
